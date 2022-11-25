@@ -1,0 +1,1 @@
+public interface IBaseRepository<T> : IReadOnlyRepository<T>, IWritableRepository<T> where T : BaseEntity {}
