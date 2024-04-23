@@ -17,21 +17,22 @@ public abstract class BaseController<TEntity>
 
   [ProducesResponseType(400, Type = typeof(ErrorResponseDTO))]
   [ProducesResponseType(404, Type = typeof(ErrorResponseDTO))]
-  [HttpGet]
-  public async virtual Task<IActionResult> GetById([FromQuery] int? id) => OnSuccess(await ReadOnlyRepository.GetByIdAsync(id));
+  [HttpGet("{id}")]
+  public async virtual Task<IActionResult> GetById(int? id) => OnSuccess(await ReadOnlyRepository.GetByIdAsync(id));
 
-  [HttpGet("All")]
+  [HttpGet]
   public async virtual Task<IActionResult> GetAll([FromQuery] int? page, [FromQuery] int? itemsPerPage) =>
     Ok(await ReadOnlyRepository.GetAllAsync(page, itemsPerPage));
     
   [ProducesResponseType(400, Type = typeof(ErrorResponseDTO))]
   [ProducesResponseType(404, Type = typeof(ErrorResponseDTO))]
   [ProducesResponseType(413, Type = typeof(ErrorResponseDTO))]
-  [HttpPut]
-  public async virtual Task<IActionResult> Update([FromQuery] int? id, [FromBody] TEntity model) =>
+  [HttpPut("{id}")]
+  public async virtual Task<IActionResult> Update(int? id, [FromBody] TEntity model) =>
     ModelState.IsValid ? OnSuccess(await WritableRepository.UpdateAsync(id, model)) : OnInvalidModelState();
 
-  public async virtual Task<IActionResult> Delete([FromQuery] int? id)
+  [HttpDelete("{id}")]
+  public async virtual Task<IActionResult> Delete(int? id)
   {
     await WritableRepository.RemoveAsync(id);
     return NoContent();

@@ -1,15 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 
-public static class ContextServices
+namespace App.Configurations;
+
+public static class ContextConfigurations
 {
-    internal static IServiceCollection ConfigureContext(this IServiceCollection services, string connectionString)
+    internal static IServiceCollection ConfigureContext(this IServiceCollection services)
     {
-        AddDbContext(services, connectionString);
+        AddDbContext(services);
         AddServices(services);
         return services;
     }
 
-    private static IServiceCollection AddDbContext(IServiceCollection services, string connectionString) =>
+    private static IServiceCollection AddDbContext(IServiceCollection services) =>
       services.AddDbContext<ApplicationContext>(/*options => options.Use(connectionString)*/);
 
     private static IServiceCollection AddServices(IServiceCollection services) => services

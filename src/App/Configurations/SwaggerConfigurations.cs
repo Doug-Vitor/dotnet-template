@@ -1,6 +1,8 @@
 using System.Reflection;
 
-public static class SwaggerServices
+namespace App.Configurations;
+
+public static class SwaggerConfigurations
 {
   internal static IServiceCollection ConfigureSwagger(this IServiceCollection services) =>
     services.AddSwaggerGen(options => options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml")));
