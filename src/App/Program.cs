@@ -1,14 +1,20 @@
+using App.Configurations;
+
+DotNetEnv.Env.Load("../../.env");
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddVersioning();
+builder.Services.ConfigureCors();
 
 builder.Services.ConfigureSwagger();
-builder.Services.ConfigureContext(builder.Configuration.GetConnectionString("Default"));
+builder.Services.ConfigureContext();
 
 var app = builder.Build();
 
 app.AddSwagger();
+app.UseCors();
 
 app.UseHttpsRedirection();
 

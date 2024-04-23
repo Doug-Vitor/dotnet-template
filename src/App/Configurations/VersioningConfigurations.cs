@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Versioning;
 
-internal static class VersioningServices
+namespace App.Configurations;
+
+internal static class VersioningConfigurations
 {
   internal static IServiceCollection AddVersioning(this IServiceCollection services) => services.AddApiVersioning(options =>
   {
